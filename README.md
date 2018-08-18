@@ -1,7 +1,7 @@
 # sentry-ansible
 
 This is a role to install Sentry (https://sentry.io/welcome/) on CentOS or Debian using Python.
-So basically it's https://docs.sentry.io/server/installation/python/ fitted into a Ansible role.
+So basically it's https://docs.sentry.io/server/installation/python/ fitted into an Ansible role.
 
 If you don't want / need / can't use docker you can easily go with this. :)
 
@@ -15,7 +15,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 1. A weapon of choice - base system - CentOS or Debian in this case.
-2. Redis or Memcached 
+2. Redis or Memcached
 3. PostgreSQL or MariaDB
 
 ### Installing
@@ -61,8 +61,8 @@ SENTRY_CONF=/etc/sentry/sentry.conf.py sentry createuser
 
 ## Running the tests
 
-TODO. Automated tests.
-Done. Manual test with installing in. I'm more than 100% sure I've missed something.
+TODO: Automated tests.
+Done: Manual test with installing and running basic config. I'm more than 100% sure I've missed something.
 
 
 ## Authors
