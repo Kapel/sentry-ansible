@@ -1,0 +1,46 @@
+---
+  #Default variables file for sentry
+#sentry version can take number or latest
+sentry_version: "9.0.0"
+sentry_dir: "/var/www/sentry"
+sentry_conf_dir: "/etc/sentry"
+sentry_conf_py: "sentry.conf.py"
+sentry_conf_yml: "config.yml"
+sentry_user: "sentry"
+sentry_group: "sentry"
+sentry_port: "9000"
+sentry_ip: "0.0.0.0"
+sentry_instance_number: "4"
+sentry_debug: "False"
+sentry_testing: "False"
+sentry_celeryd_concurrency: "8"
+sentry_secret_key: "value_should_be_overriden_by_vault"
+#Sentry AD auth
+sentry_ad_auth: False
+sentry_auth_ldap_server_uri: "ldaps://ad.wizard.net"
+sentry_auth_ldap_bind_dn: "CN=something,OU=Tech,OU=myorg,DC=ad,DC=wizard,DC=net"
+sentry_auth_ldap_bind_password: "value_should_be_overriden_by_vault"
+sentry_auth_ldap_user_search: "OU=Workers,OU=myorg,DC=dc,DC=wizard,DC=net"
+sentry_auth_ldap_group_search: "ou=Permissions,U=myorg,DC=dc,DC=wizard,DC=net"
+sentry_auth_ldap_default_sentry_org: "testorg"
+#Sentry DB stuff
+#sentry_db_engine: "django.db.backends.mysql"
+sentry_db_engine: "sentry.db.postgres"
+sentry_db_name: "sentry"
+sentry_db_user: "sentry"
+sentry_db_password: "value_should_be_overriden_by_vault"
+sentry_db_host: "127.0.0.1"
+sentry_db_port: "3306"
+sentry_db_postgre_autocommit: "True"
+sentry_db_postgre_atomicreq: "False"
+sentry_redis_host: "127.0.0.1"
+sentry_redis_port: "6379"
+#general
+#The proxy pass vars are not used. Might add them in the future. It more like adding a ENV like http_proxy to connect via your proxy server.
+proxy_http: ""
+proxy_https: ""
+sentry_pip_proxy_http: ""
+sentry_pip_proxy_https: ""
+system_language: "en_US"
+system_encoding: "UTF-8"
+...

@@ -1,0 +1,126 @@
+---
+#Installation of sentry
+  - include: centos-setup.yml
+    when: ansible_distribution == "CentOS"
+
+  - include: debian-setup.yml
+    when: ansible_distribution == "Debian"
+
+  - name: Upgrade pip
+    pip:
+      name: pip
+      extra_args: --upgrade
+
+  - name: Add sentry group
+    group:
+      name: "{{ sentry_group }}"
+      state: present
+
+  - name: Add user sentry
+    user:
+      name: "{{ sentry_user }}"
+      comment: User for running sentry
+      group: sentry
+      shell: /bin/bash
+      createhome: no
+
+  - name: Install sentry and modules
+    pip:
+        name: sentry
+        version: "{{ sentry_version }}"
+        virtualenv: "{{ sentry_dir }}/sentry{{ sentry_version }}"
+
+  - name: Install sentry and modules
+    pip:
+        name: "{{ item }}"
+        state: latest
+        virtualenv: "{{ sentry_dir }}/sentry{{ sentry_version }}"
+    with_items:
+      - sentry-jira
+      - sentry-extras
+      - sentry-graphite
+      - sentry-hipchat
+      - sentry-geo
+      - sentry-zabbix
+
+  - name: Install sentry ldap modules
+    pip:
+        name: "{{ item }}"
+        state: latest
+        virtualenv: "{{ sentry_dir }}/sentry{{ sentry_version }}"
+    with_items:
+      - django-auth-ldap
+      - python-ldap
+      - sentry-ldap-auth
+    when: sentry_ad_auth
+
+  - name: Link current version to default dir runfiles
+    file:
+      src: "{{ sentry_dir }}/sentry{{ sentry_version }}/bin"
+      dest: "{{ sentry_dir }}/bin"
+      owner: "{{ sentry_user }}"
+      group: "{{ sentry_group }}"
+      state: link
+      force: yes
+
+  - name: Create sentry config directory.
+    file:
+      path: "{{ sentry_conf_dir }}"
+      state: directory
+      owner: "{{ sentry_user }}"
+      group: "{{ sentry_group }}"
+
+  - name: Create sentry.conf.py
+    template:
+      src: "{{ sentry_conf_py }}"
+      dest: "{{ sentry_conf_dir }}"
+      owner: "{{ sentry_user }}"
+      group: "{{ sentry_group }}"
+      mode: '0644'
+      backup: yes
+    tags: conf
+
+  - name: Create conf.py
+    template:
+      src: "{{ sentry_conf_yml }}"
+      dest: "{{ sentry_conf_dir }}"
+      owner: "{{ sentry_user }}"
+      group: "{{ sentry_group }}"
+      mode: '0644'
+      backup: yes
+    tags: conf
+
+  - name: Create sentry-worker service
+    template:
+      src: sentry-worker.service.j2
+      dest: /etc/systemd/system/sentry-worker.service
+      owner: root
+      group: root
+      mode: '0755'
+    register: sentry_worker_conf
+    notify: Restart sentry-worker
+    tags: conf
+
+  - name: Create sentry-cron service
+    template:
+      src: sentry-cron.service.j2
+      dest: /etc/systemd/system/sentry-cron.service
+      owner: root
+      group: root
+      mode: '0755'
+    register: sentry_cron_conf
+    notify: Restart sentry-cron
+    tags: conf
+
+  - name: Create sentry-web service
+    template:
+      src: sentry-web.service.j2
+      dest: /etc/systemd/system/sentry-web.service
+      owner: root
+      group: root
+      mode: '0755'
+    register: sentry_web_conf
+    notify: Restart sentry-web
+    tags: conf
+
+...

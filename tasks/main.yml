@@ -1,0 +1,18 @@
+---
+#Installation of sentry
+  - include: centos-setup.yml
+    when: ansible_distribution == "CentOS"
+
+  - include: debian-setup.yml
+    when: ansible_distribution == "Debian"
+
+  - include: install.yml
+    #when: '"install" == {{ ansible_task }}'
+
+  #- include: update.yml
+  #  when: {{ ansible_task }} is 'update'
+
+
+
+
+...

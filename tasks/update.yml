@@ -1,0 +1,15 @@
+---
+#Update of sentry
+#Play will update sentry version one by one until it meets an error
+- name: Check what version exists in install dir
+- name: If no version - install defined, if not defined - install newest
+- name: Check databse type - mariadb / postgres
+- name: Check connectivity to DB
+- name: Backup db to sentry_version_dumpfile_date file
+- name: Install version
+- name: Run sentry upgrade with config from the version, retry 3 times in case of connectivity problems, add proxy if needed (if used defined)
+- name: Link and run sentry process to check, if there are any errors
+- name: Run if errors ocurred - rollback db to last working version and link versions
+- name: If no errors - get another sentry version and try to update
+- name: If top version - go get a pint
+...

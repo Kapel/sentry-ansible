@@ -1,0 +1,46 @@
+---
+    - name: Start sentry-worker
+      become: yes
+      systemd:
+        name: sentry-worker
+        enabled: yes
+        state: started
+
+    - name: Start sentry
+      become: yes
+      systemd:
+        name: sentry
+        enabled: yes
+        state: started
+
+    - name: Start sentry-cron
+      become: yes
+      systemd:
+        name: sentry-cron
+        enabled: yes
+        state: started
+
+    - name: Restart sentry-worker
+      become: yes
+      systemd:
+        name: sentry-worker
+        enabled: yes
+        state: restarted
+      when: sentry_worker_conf.changed
+
+    - name: Restart sentry-web
+      become: yes
+      systemd:
+        name: sentry-web
+        enabled: yes
+        state: restarted
+      when: sentry_web_conf.changed
+
+    - name: Restart sentry-cron
+      become: yes
+      systemd:
+        name: sentry-cron
+        enabled: yes
+        state: restarted
+      when: sentry_cron_conf.changed
+...

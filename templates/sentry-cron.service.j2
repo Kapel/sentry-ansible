@@ -1,0 +1,11 @@
+[Unit]
+Description=Sentry Cron Service
+After=network.target
+
+[Service]
+Type=simple
+User={{ sentry_user }}
+Group={{ sentry_group }}
+WorkingDirectory={{ sentry_dir }}
+Environment=SENTRY_CONF={{ sentry_conf_dir }}/{{ sentry_conf_py }}
+ExecStart={{ sentry_dir }}/bin/sentry run cron

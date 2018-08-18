@@ -1,0 +1,19 @@
+[Unit]
+Description=Sentry error logging and aggregation service
+Documentation=http://sentry.readthedocs.org/en/latest/
+After=network.target celery.service celery_beat.service
+
+[Service]
+Type=simple
+User={{ sentry_user }}
+Group={{ sentry_group }}
+Environment=SENTRY_CONF={{ sentry_conf_dir }}/{{ sentry_conf_py}}
+ExecStart={{ sentry_dir }}/bin/sentry run web
+Restart=always
+RestartSec=5
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
+
+[Unit]

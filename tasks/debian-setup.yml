@@ -1,0 +1,21 @@
+---
+#Installation for Debian based systems
+- name: Install required programs.
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+      - gcc
+      - g++
+      - libffi-dev
+      - libjpeg-dev
+      - libxml2-dev
+      - libxslt-dev
+      - libyaml-dev
+      - libpqxx-dev
+      - python-pip
+      - python-dev
+      - libsasl2-dev
+      - python-virtualenv
+      - python-setuptools
+...

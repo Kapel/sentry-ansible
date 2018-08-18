@@ -1,0 +1,21 @@
+---
+#Installation of sentry on CentOS based systems
+- name: Install required programs.
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+      - gcc
+      - gcc-c++
+      - libffi-devel
+      - libjpeg-devel
+      - libxml2-devel
+      - libxslt-devel
+      - libyaml-devel
+      - libpqxx-devel
+      - python2-pip
+      - openldap-devel
+      - python-devel
+      - python-virtualenv
+      - python-setuptools
+...
