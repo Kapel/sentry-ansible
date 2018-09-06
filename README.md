@@ -31,7 +31,7 @@ local   all             postgres                                trust
 ```
 
 For Debian based systems it's located somwhere around:
-at tip to anyone whose code was used
+
 ```
 /etc/postgresql/<version>/main/pg_hba.conf
 ```
