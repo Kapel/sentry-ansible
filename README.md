@@ -65,11 +65,6 @@ TODO: Automated tests.
 Done: Manual test with installing and running basic config. I'm more than 100% sure I've missed something.
 
 
-## Authors
-
-* **The Wizard** - *Initial work*
-
-
 ## License
 
 This project is licensed under the WTFPLv2 License - see the [LICENSE.md](LICENSE.md) file for details
